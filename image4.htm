@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="pragma" content="no-cache" />
+
+  <title>Petit-Sault Brouetique</title>
+
+  <style>
+    @font-face {
+      font-family: attic;
+      src: url('fonts/attic.ttf');
+    }
+
+    html, body {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      font-family: attic;
+      background-color: black;
+    }
+
+    /* Carousel Container */
+    .carousel {
+      position: relative;
+      max-width: 100%;
+      overflow: hidden;
+      height: 100vh; /* Full viewport height */
+    }
+
+    /* Individual Slide */
+    .carousel .item {
+      display: none; /* Hide all slides initially */
+      width: 100%;
+      height: auto;
+    }
+
+    .carousel .active {
+      display: block; /* Display the active slide */
+    }
+
+    /* Ensure images are responsive */
+    .carousel .item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Controls */
+    .carousel-control-prev, .carousel-control-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      padding: 10px;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .carousel-control-prev {
+      left: 10px;
+    }
+
+    .carousel-control-next {
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="myCarousel" class="carousel">
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" id="carousel-inner">
+      <div class="item active"> <img src="horaire_fr.jpg" alt="Image 1"> </div>
+      <div class="item"> <img src="horaire_en.jpg" alt="Image 2"> </div>
+
+    </div>
+
+    <!-- Previous and Next Controls -->
+    <button class="carousel-control-prev" onclick="prevSlide()">‹</button>
+    <button class="carousel-control-next" onclick="nextSlide()">›</button>
+  </div>
+
+  <script>
+    var currentIndex = 0;
+    var items = document.getElementsByClassName('item');
+    var totalItems = items.length;
+
+    function showSlide(index) {
+      // Hide all items
+      for (var i = 0; i < totalItems; i++) {
+        items[i].style.display = 'none';
+      }
+
+      // Show the current item
+      items[index].style.display = 'block';
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % totalItems;
+      showSlide(currentIndex);
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+      showSlide(currentIndex);
+    }
+
+    // Initial display
+    showSlide(currentIndex);
+
+    // Set interval for automatic slide change (adjust time as needed)
+    setInterval(nextSlide, 20000); // Change slide every 20 seconds
+  </script>
+
+</body>
+</html>
