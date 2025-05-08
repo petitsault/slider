@@ -21,38 +21,39 @@
       padding: 0;
       margin: 0;
       height: 100%;
-      font-family: attic;
+      font-family: attic, sans-serif;
       background-color: black;
     }
 
-    /* Carousel Container */
     .carousel {
       position: relative;
       max-width: 100%;
       overflow: hidden;
-      height: 100vh; /* Full viewport height */
+      height: 100vh;
     }
 
-    /* Individual Slide */
-    .carousel .item {
-      display: none; /* Hide all slides initially */
+    .carousel-inner {
+      height: 100%;
+    }
+
+    .item {
+      display: none;
       width: 100%;
-      height: auto;
+      height: 100%;
     }
 
-    .carousel .active {
-      display: block; /* Display the active slide */
+    .item.active {
+      display: block;
     }
 
-    /* Ensure images are responsive */
-    .carousel .item img {
+    .item img {
       width: 100%;
       height: auto;
       display: block;
     }
 
-    /* Controls */
-    .carousel-control-prev, .carousel-control-next {
+    .carousel-control-prev,
+    .carousel-control-next {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
@@ -62,6 +63,7 @@
       color: white;
       border: none;
       cursor: pointer;
+      z-index: 10;
     }
 
     .carousel-control-prev {
@@ -75,48 +77,46 @@
 </head>
 <body>
 
-  <div id="myCarousel" class="carousel">
-    <!-- Wrapper for slides -->
+  <div id="myCarousel" class="carousel" aria-label="Carousel d’images">
     <div class="carousel-inner" id="carousel-inner">
-      <div class="item"> <img src="vin.jpg"> </div>
-      <div class="item"> <img src="spiritueux.jpg"> </div>
+      <div class="item active">
+        <img src="vin.jpg">
+      </div>
+      <div class="item">
+        <img src="spiritueux.jpg">
+      </div>
     </div>
 
-    <!-- Previous and Next Controls -->
-    <button class="carousel-control-prev" onclick="prevSlide()">‹</button>
-    <button class="carousel-control-next" onclick="nextSlide()">›</button>
+    <button class="carousel-control-prev" onclick="prevSlide()" aria-label="Image précédente">‹</button>
+    <button class="carousel-control-next" onclick="nextSlide()" aria-label="Image suivante">›</button>
   </div>
 
   <script>
-    var currentIndex = 0;
-    var items = document.getElementsByClassName('item');
-    var totalItems = items.length;
+    let currentIndex = 0;
+    const items = document.querySelectorAll('.item');
+    const totalItems = items.length;
 
-    function showSlide(index) {
-      // Hide all items
-      for (var i = 0; i < totalItems; i++) {
-        items[i].style.display = 'none';
-      }
-
-      // Show the current item
-      items[index].style.display = 'block';
+    function updateSlides(index) {
+      items.forEach((item, i) => {
+        item.classList.toggle('active', i === index);
+      });
     }
 
     function nextSlide() {
       currentIndex = (currentIndex + 1) % totalItems;
-      showSlide(currentIndex);
+      updateSlides(currentIndex);
     }
 
     function prevSlide() {
       currentIndex = (currentIndex - 1 + totalItems) % totalItems;
-      showSlide(currentIndex);
+      updateSlides(currentIndex);
     }
 
-    // Initial display
-    showSlide(currentIndex);
+    // Initial setup
+    updateSlides(currentIndex);
 
-    // Set interval for automatic slide change (adjust time as needed)
-    setInterval(nextSlide, 20000); // Change slide every 20 seconds
+    // Auto-slide every 20 seconds
+    setInterval(nextSlide, 20000);
   </script>
 
 </body>
